@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('prenom');
             $table->string('mail');
             $table->string('password');
-            $table->string('success');
+            $table->boolean('success');
             $table->timestamps();
         });
     }
