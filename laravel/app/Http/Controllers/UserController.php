@@ -2,75 +2,75 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
-use App\Models\Users;
 
 class UserController extends Controller
 {
     public function index()
     {
-        $User = Users::all();
-        return response()->json($User);
+        $users = User::all();
+        return response()->json($users);
     }
 
     public function store(Request $request)
     {
-        $User = new Users;
-        $User->name = $request->name;
-        $User->secret_identity = $request->secret_identity;
-        $User->gender = $request->gender;
-        $User->hair_color = $request->hair_color;
-        $User->original_planet = $request->original_planet;
-        $User->save();
+        $users = new User;
+        $users->nom = $request->nom;
+        $users->prenom = $request->prenom;
+        $users->mail = $request->mail;
+        $users->password = $request->password;
+        $users->success = $request->success;
+        $users->save();
         return response()->json([
-            "message" => "User Added."
+            "message" => "users Added."
         ], 201);
     }
 
     public function show($id)
     {
-        $User = Users::find($id);
-        if (!empty($User)) {
-            return response()->json($User);
+        $users = User::find($id);
+        if (!empty($users)) {
+            return response()->json($users);
         } else {
             return response()->json([
-                "message" => "User not found."
+                "message" => "users not found."
             ], 404);
         }
     }
 
     public function update(Request $request, $id)
     {
-        if (Users::where('id', $id)->exists()) {
-            $User = Users::find($id);
-            $User->name = is_null($request->name) ? $User->name : $request->name;
-            $User->secret_identity = is_null($request->secret_identity) ? $User->secret_identity : $request->secret_identity;
-            $User->gender = is_null($request->gender) ? $User->gender : $request->gender;
-            $User->hair_color = is_null($request->hair_color) ? $User->hair_color : $request->hair_color;
-            $User->original_planet = is_null($request->original_planet) ? $User->original_planet : $request->original_planet;
-            $User->save();
+        if (User::where('id', $id)->exists()) {
+            $users = User::find($id);
+            $users->nom = is_null($request->nom) ? $users->nom : $request->nom;
+            $users->prenom = is_null($request->prenom) ? $users->prenom : $request->prenom;
+            $users->mail = is_null($request->mail) ? $users->mail : $request->mail;
+            $users->password = is_null($request->password) ? $users->password : $request->password;
+            $users->success = is_null($request->success) ? $users->success : $request->success;
+            $users->save();
             return response()->json([
-                "message" => "User updated."
+                "message" => "user updated."
             ], 404);
         } else {
             return response()->json([
-                "message" => "User not found."
+                "message" => "user not found."
             ], 404);
         }
     }
 
     public function destroy($id)
     {
-        if (Users::where('id', $id)->exists()) {
-            $User = Users::find($id);
-            $User->delete();
+        if (User::where('id', $id)->exists()) {
+            $users = User::find($id);
+            $users->delete();
 
             return response()->json([
-                "message" => "User deleted."
+                "message" => "user deleted."
             ], 202);
         } else {
             return response()->json([
-                "message" => "User not found."
+                "message" => "user not found."
             ], 404);
         }
     }

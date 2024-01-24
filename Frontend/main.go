@@ -19,6 +19,10 @@ type User struct {
 
 func main() {
     http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+			// Set security headers
+			w.Header().Set("Strict-Transport-Security", "max-age=63072000; includeSubDomains")
+			w.Header().Set("Content-Security-Policy", "default-src 'self'")
+			w.Header().Set("X-Content-Type-Options", "nosniff")
         resp, err := http.Get("http://127.0.0.1:8000/api/users") 
         if err != nil {
             log.Fatal(err)
